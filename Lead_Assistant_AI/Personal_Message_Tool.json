@@ -1,0 +1,435 @@
+{
+  "name": "Personal Message Tool",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "f42e3fd7-ab54-49c7-b3e8-225cdfb96146",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        380
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "5dfe3e61-ae6f-41ac-be5f-a9a95a27ea29",
+              "name": "replay",
+              "value": "={{ $json.message.content }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "84732089-849f-4c67-b6d0-2b34211d1be4",
+      "name": "Edit Fields",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1140,
+        680
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "id": "109bb635-3908-481a-adfb-d6aff42d140e",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        1360,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1CW8x0uzo50E_SHJDXR4ypuZxmY4wj5Tl3HKDFg4eDJc/edit?gid=1343837586#gid=1343837586",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1343837586,
+          "mode": "list",
+          "cachedResultName": "clienti_qualificati",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1CW8x0uzo50E_SHJDXR4ypuZxmY4wj5Tl3HKDFg4eDJc/edit#gid=1343837586"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "Qualificato ?",
+              "lookupValue": "Qualificato"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "93734a72-6b6d-4329-b3f3-bde702cfa0fe",
+      "name": "Get Row's",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        440,
+        380
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "m7mFJXFz0w4Wr6xg",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1CW8x0uzo50E_SHJDXR4ypuZxmY4wj5Tl3HKDFg4eDJc/edit?gid=1343837586#gid=1343837586",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1343837586,
+          "mode": "list",
+          "cachedResultName": "clienti_qualificati",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1CW8x0uzo50E_SHJDXR4ypuZxmY4wj5Tl3HKDFg4eDJc/edit#gid=1343837586"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Outreach ": "={{ $json.replay }}",
+            "Indirizzo Email": "={{ $json['Indirizzo Email'] }}"
+          },
+          "matchingColumns": [
+            "Indirizzo Email"
+          ],
+          "schema": [
+            {
+              "id": "Indirizzo Email",
+              "displayName": "Indirizzo Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Nome Completo",
+              "displayName": "Nome Completo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Nome Azienda",
+              "displayName": "Nome Azienda",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Settore Aziendale",
+              "displayName": "Settore Aziendale",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Ruolo",
+              "displayName": "Ruolo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Sei il decision maker per la tua azienda?",
+              "displayName": "Sei il decision maker per la tua azienda?",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Dimensione Azienda",
+              "displayName": "Dimensione Azienda",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Metodo di Contatto Preferito",
+              "displayName": "Metodo di Contatto Preferito",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Miglior Orario per Contattare",
+              "displayName": "Miglior Orario per Contattare",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Qualcos'altro da sapere?",
+              "displayName": "Qualcos'altro da sapere?",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Rating         ",
+              "displayName": "Rating         ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Reasoning         ",
+              "displayName": "Reasoning         ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Outreach ",
+              "displayName": "Outreach ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c5fe1466-8594-40cf-a458-36f68eb97b15",
+      "name": "Update Row's",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1580,
+        400
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "m7mFJXFz0w4Wr6xg",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0bb7da79-e3a0-4eab-82ce-d79f973fabf3",
+              "name": "response",
+              "value": "done ",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "2829ac05-00d3-42da-ba3c-6a07e53c9cf1",
+      "name": "response",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1780,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini-2024-07-18",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI-2024-07-18"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Il tuo obiettivo è scrivere un messaggio personalizzato per ciascun contatto. Indica il metodo di contatto preferito dai contatti e qual è il momento migliore per contattarli. Poi fornisci uno script che sia personalizzato in base alla loro azienda, al titolo professionale e a ciò che stanno cercando di automatizzare.\n\nQuesti messaggi dovrebbero essere inviati da \"Razak\", di \"Pippo Corp\", e la sua email è \"razakPippocompy@compy\". Il messaggio non dovrebbe includere variabili come [Il tuo nome] o [Nome dell'azienda]; utilizza le informazioni che ti ho appena fornito per inserire quei dettagli.",
+              "role": "system"
+            },
+            {
+              "content": "=Qui ci sono le infomazione sui i leads: \nNome:{{ $json['Nome Completo'] }}\nRuolo: {{ $json.Ruolo }}\nCosa sta cercando di automatizzare ?:{{ $json['Qualcos\\'altro da sapere?'] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "def63066-c749-4ab4-b9e2-dc7e2ec016f6",
+      "name": "Generate content",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.4,
+      "position": [
+        720,
+        700
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "d5QuQIJprInGK4X2",
+          "name": "OpenAi account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get Row's",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Update Row's",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Row's": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Generate content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Row's": {
+      "main": [
+        [
+          {
+            "node": "response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate content": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "d72cfccb-fb84-4d47-a064-2c65a681e4af",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "ae372c62e73fd2c5fcdcce7ed3303ce4ce0ece17ce506d703ef7d974ff95018f"
+  },
+  "id": "qLeBQWIjJil4a5Cc",
+  "tags": [
+    {
+      "createdAt": "2024-09-25T15:20:14.154Z",
+      "updatedAt": "2024-09-25T15:20:14.154Z",
+      "id": "aztqoCbHQtYjodZU",
+      "name": "tools"
+    },
+    {
+      "createdAt": "2024-09-27T18:52:42.467Z",
+      "updatedAt": "2024-09-27T18:52:42.467Z",
+      "id": "darHQihEeNRQY7ov",
+      "name": "Lead Assistant AI Agent"
+    }
+  ]
+}
