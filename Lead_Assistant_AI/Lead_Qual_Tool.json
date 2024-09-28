@@ -1,0 +1,434 @@
+{
+  "name": "Lead Qual Tool",
+  "nodes": [
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1CW8x0uzo50E_SHJDXR4ypuZxmY4wj5Tl3HKDFg4eDJc/edit?gid=1343837586#gid=1343837586",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1343837586,
+          "mode": "list",
+          "cachedResultName": "clienti_qualificati",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1CW8x0uzo50E_SHJDXR4ypuZxmY4wj5Tl3HKDFg4eDJc/edit#gid=1343837586"
+        },
+        "options": {}
+      },
+      "id": "ee2d59ee-2646-4ba4-9a84-70c81f92daab",
+      "name": "Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        180,
+        320
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "m7mFJXFz0w4Wr6xg",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "1f1a8881-6bc7-4671-a53e-51ab6dfb7dfa",
+              "name": "reply ",
+              "value": "={{ JSON.parse($json.message.content) }}",
+              "type": "object"
+            },
+            {
+              "id": "e6bd95d8-5c64-4e5e-852c-1a1bfe2cff50",
+              "name": "",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "650335f4-c503-49ef-9655-59f400ffdd34",
+      "name": "Edit Fields",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        740,
+        560
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1CW8x0uzo50E_SHJDXR4ypuZxmY4wj5Tl3HKDFg4eDJc/edit?gid=1343837586#gid=1343837586",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1343837586,
+          "mode": "list",
+          "cachedResultName": "clienti_qualificati",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1CW8x0uzo50E_SHJDXR4ypuZxmY4wj5Tl3HKDFg4eDJc/edit#gid=1343837586"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Indirizzo Email": "={{ $json['Indirizzo Email'] }}",
+            "Qualificato ?": "={{ $json['reply ']['Qualificato?'] }}",
+            "Motivo": "={{ $json['reply '].motivo }}"
+          },
+          "matchingColumns": [
+            "Indirizzo Email"
+          ],
+          "schema": [
+            {
+              "id": "Indirizzo Email",
+              "displayName": "Indirizzo Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Nome Completo",
+              "displayName": "Nome Completo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Nome Azienda",
+              "displayName": "Nome Azienda",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Settore Aziendale",
+              "displayName": "Settore Aziendale",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Ruolo",
+              "displayName": "Ruolo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Sei il decision maker per la tua azienda?",
+              "displayName": "Sei il decision maker per la tua azienda?",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Dimensione Azienda",
+              "displayName": "Dimensione Azienda",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Metodo di Contatto Preferito",
+              "displayName": "Metodo di Contatto Preferito",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Miglior Orario per Contattare",
+              "displayName": "Miglior Orario per Contattare",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Qualcos'altro da sapere?",
+              "displayName": "Qualcos'altro da sapere?",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Qualificato ?",
+              "displayName": "Qualificato ?",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Motivo",
+              "displayName": "Motivo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Outreach ",
+              "displayName": "Outreach ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "834cccab-a6ca-4a06-b1d5-7b823cabefe0",
+      "name": "Google Sheets1",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1160,
+        340
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "m7mFJXFz0w4Wr6xg",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c7e08829-628c-49a7-93ff-9e4950a753cf",
+              "name": "response",
+              "value": "done",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a6cde746-f11c-48e6-af5e-5f0fcd2c69b5",
+      "name": "Edit Fields1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1380,
+        340
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "690cb141-ce1b-41ad-87dc-3102ee4e7cea",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        -20,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini-2024-07-18",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI-2024-07-18"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Il tuo compito è qualificare i lead in arrivo. I lead provengono da invii a un gruppo di comunità chiuso. Utilizza i seguenti criteri per qualificare un lead:\n\nDevono essere una figura decisionale che gestisce l'azienda o che ha influenza nel processo decisionale. Questo è il criterio principale.\n\nAl momento vogliamo lavorare solo con aziende che abbiano circa 300 dipendenti o meno, e conoscere le dimensioni dell'azienda. Questo è il secondo criterio.\n\nPensa passo dopo passo per decidere se un lead è qualificato o meno.\n\nSe un lead è qualificato, rispondi con \"Qualificato\", altrimenti rispondi \"Non qualificato\". Rispondi con un JSON nel seguente formato: {\"Qualificato?\" : \"string\", \"motivo\" : \"string\"}. Rispondi solo con il JSON e nient'altro.",
+              "role": "system"
+            },
+            {
+              "content": "=Qui ci sono le infomazione sui i leads: \nNome:{{ $json['Nome Completo'] }}\nDimensione Azienda: {{ $json['Dimensione Azienda'] }}\nDecision maker? {{ $json['Sei il decision maker per la tua azienda?'] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a658a0eb-699b-4a32-9871-0bcbe6de457e",
+      "name": "OpenAI",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.4,
+      "position": [
+        400,
+        560
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "d5QuQIJprInGK4X2",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "id": "d68b9bfa-68a2-4668-89a9-c0619118c5c4",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3,
+      "position": [
+        920,
+        340
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "OpenAI",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Google Sheets1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "e4df92d5-52df-4782-895f-01fce24636b2",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "ae372c62e73fd2c5fcdcce7ed3303ce4ce0ece17ce506d703ef7d974ff95018f"
+  },
+  "id": "lqjW1CKmeuA1vBv7",
+  "tags": [
+    {
+      "createdAt": "2024-09-25T15:20:14.154Z",
+      "updatedAt": "2024-09-25T15:20:14.154Z",
+      "id": "aztqoCbHQtYjodZU",
+      "name": "tools"
+    },
+    {
+      "createdAt": "2024-09-27T18:52:42.467Z",
+      "updatedAt": "2024-09-27T18:52:42.467Z",
+      "id": "darHQihEeNRQY7ov",
+      "name": "Lead Assistant AI Agent"
+    }
+  ]
+}
