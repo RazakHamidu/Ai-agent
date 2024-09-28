@@ -1,0 +1,189 @@
+{
+  "name": "Lead Assistant AI Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "model": "gpt-4o-mini",
+        "options": {}
+      },
+      "id": "e8e6e30d-6109-4d87-9d22-1e9097f2bce3",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1,
+      "position": [
+        720,
+        660
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "d5QuQIJprInGK4X2",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "69753cdb-4305-4d41-b134-484e339185bb",
+      "name": "Window Buffer Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.2,
+      "position": [
+        840,
+        660
+      ]
+    },
+    {
+      "parameters": {
+        "name": "leadQual",
+        "description": "Chiama questo strumento per qualificare i contatti nel database.",
+        "workflowId": {
+          "__rl": true,
+          "value": "lqjW1CKmeuA1vBv7",
+          "mode": "list",
+          "cachedResultName": "Lead Qual Tool"
+        }
+      },
+      "id": "1c949dbb-220c-40d7-b2fe-e9dbda0f2f12",
+      "name": "leadQual",
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        980,
+        660
+      ]
+    },
+    {
+      "parameters": {
+        "name": "generate_messages",
+        "description": "Chiama questo strumento per generare messaggi per i contatti.",
+        "workflowId": {
+          "__rl": true,
+          "value": "qLeBQWIjJil4a5Cc",
+          "mode": "list",
+          "cachedResultName": "Personal Message Tool"
+        }
+      },
+      "id": "42c2a767-ddcb-40d5-9b47-a57cbd15921f",
+      "name": "generate messages",
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1120,
+        660
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.chatInput }}",
+        "options": {
+          "systemMessage": "=Contesto: Sei un agente IA progettato per assistere nella gestione dei lead in un ambiente di vendite o marketing. Le tue principali responsabilità includono la qualificazione dei lead in base a criteri specifici e la creazione di messaggi personalizzati per interagire con potenziali clienti. Riceverai messaggi di chat dagli utenti e, in base al contenuto di questi messaggi, determinerai le azioni appropriate da intraprendere.\n\nQualificazione dei Lead:\n\nDopo aver ricevuto un messaggio di chat che chiede: Esempio Valuta i leads o verifica i leads o qualcosa di simile, utilizza lo strumento leadQual per valutare se i lead sono idonei.\n\nGenerazione di Messaggi:\nDopo aver ricevuto un messaggio di chat che chiede: Esempio Creare messagi per i leads o creare i messagi perzonalizzanti o qualcosa si simile utilizza lo strumento generate_messages per creare messaggi personalizzati che risuonino con gli interessi e le necessità del lead."
+        }
+      },
+      "id": "7985ab38-6042-41b8-8df6-c5b255436a0c",
+      "name": "Lead Assistant AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.6,
+      "position": [
+        780,
+        360
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "271d9ef0-3680-4585-8288-ed60fa03169d",
+      "name": "When chat message received",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        540,
+        360
+      ],
+      "webhookId": "f5ac710b-cdf8-49fc-bd7b-edbc3913f82b"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Lead Assistant AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Window Buffer Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Lead Assistant AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "leadQual": {
+      "ai_tool": [
+        [
+          {
+            "node": "Lead Assistant AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "generate messages": {
+      "ai_tool": [
+        [
+          {
+            "node": "Lead Assistant AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Lead Assistant AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "2250a0d0-8a42-4a55-a666-3df51cfcff15",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "ae372c62e73fd2c5fcdcce7ed3303ce4ce0ece17ce506d703ef7d974ff95018f"
+  },
+  "id": "uejJQywY1ArPo4I4",
+  "tags": [
+    {
+      "createdAt": "2024-09-25T06:10:42.663Z",
+      "updatedAt": "2024-09-25T06:10:42.663Z",
+      "id": "7ERzVR39mMzUGGnf",
+      "name": "Project"
+    },
+    {
+      "createdAt": "2024-09-27T18:52:42.467Z",
+      "updatedAt": "2024-09-27T18:52:42.467Z",
+      "id": "darHQihEeNRQY7ov",
+      "name": "Lead Assistant AI Agent"
+    }
+  ]
+}
