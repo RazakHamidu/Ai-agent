@@ -1,0 +1,352 @@
+{
+  "name": "🤖 Personal Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "model": "gpt-4o-mini",
+        "options": {}
+      },
+      "id": "cbb42446-0724-4ab2-a1d8-9b1cecd91436",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1,
+      "position": [
+        240,
+        1480
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "d5QuQIJprInGK4X2",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "name": "Email_list",
+        "description": "Chiama questo tool quando hai bisognio di predere infomazioni sul email del contatto"
+      },
+      "id": "e873d31d-1c22-4d56-92c7-3b9c59549c09",
+      "name": "Vector Store Tool",
+      "type": "@n8n/n8n-nodes-langchain.toolVectorStore",
+      "typeVersion": 1,
+      "position": [
+        620,
+        1360
+      ]
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o-mini-2024-07-18",
+        "options": {}
+      },
+      "id": "f6c5f0f9-1d43-4e42-a7bc-3d40ecee4fd5",
+      "name": "OpenAI Chat Model1",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1,
+      "position": [
+        800,
+        1540
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "d5QuQIJprInGK4X2",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "text-embedding-3-small",
+        "options": {}
+      },
+      "id": "576a352a-a83c-4c6e-839b-8e5315159243",
+      "name": "Embeddings OpenAI1",
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1,
+      "position": [
+        460,
+        1700
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "d5QuQIJprInGK4X2",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "68395ee9-f5b3-483c-999a-20aadbcd8db4",
+      "name": "Window Buffer Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.2,
+      "position": [
+        360,
+        1480
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "8f56189c-bdf5-4507-8ab1-59d9bae86a61",
+      "name": "When chat message received",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        500,
+        1140
+      ],
+      "webhookId": "ec630e24-7c30-424d-8d1d-7ab916ebfab0"
+    },
+    {
+      "parameters": {
+        "name": "Tool_Send_email",
+        "description": "Call this is tool when you neet to send an email.",
+        "workflowId": {
+          "__rl": true,
+          "value": "krxxKl2xhlm2Z6MX",
+          "mode": "list",
+          "cachedResultName": "Tool Send email"
+        },
+        "specifyInputSchema": true,
+        "schemaType": "manual",
+        "inputSchema": "[\n  {\n    \"query\": \"to=&subject=&emailType=text&message&appendAttribution=false&bccList=&ccList=&senderName=\"\n  }\n]"
+      },
+      "id": "890fe506-6007-45ac-b119-4a6d114704f9",
+      "name": "send email",
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        940,
+        1380
+      ]
+    },
+    {
+      "parameters": {
+        "name": "Creare_document",
+        "description": "Call this tool to go create documents on google drive",
+        "workflowId": {
+          "__rl": true,
+          "value": "cf5Mm09TFC2nySvk",
+          "mode": "list",
+          "cachedResultName": "Tool create documet on drive"
+        },
+        "specifyInputSchema": true,
+        "schemaType": "manual",
+        "inputSchema": "[\n  {\n    \"query\": \"{\\\"content\\\":\\\"=\\\",\\\"name\\\":\\\"=\\\"}\"\n  }\n]"
+      },
+      "id": "2d7ec9d1-7c9f-49e2-afe7-7d51017d5244",
+      "name": "Creare document",
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1060,
+        1380
+      ]
+    },
+    {
+      "parameters": {
+        "name": "Create_task",
+        "description": "Call this tool to go and create tasks on google tasks",
+        "workflowId": {
+          "__rl": true,
+          "value": "cohJNGY36FRW41mU",
+          "mode": "list",
+          "cachedResultName": "create google task"
+        }
+      },
+      "id": "647cd0c7-0bfe-4834-be34-2506c3bf1e36",
+      "name": "create task",
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        1180,
+        1380
+      ]
+    },
+    {
+      "parameters": {
+        "pineconeIndex": {
+          "__rl": true,
+          "value": "email",
+          "mode": "list",
+          "cachedResultName": "email"
+        },
+        "options": {
+          "pineconeNamespace": "info"
+        }
+      },
+      "id": "eee0ebc5-732b-4895-92ca-0326e0e59462",
+      "name": "Pinecone Vector Store1",
+      "type": "@n8n/n8n-nodes-langchain.vectorStorePinecone",
+      "typeVersion": 1,
+      "position": [
+        500,
+        1540
+      ],
+      "credentials": {
+        "pineconeApi": {
+          "id": "LpCsWoD4LWml2sNG",
+          "name": "PineconeApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.chatInput }}",
+        "options": {
+          "systemMessage": "=\"You are an AI agent equipped with various tools to assist users with their requests. Your capabilities include:\n\nAccessing and querying a Vector Store for relevant information\nCreating calendar events\nSending emails\nCreating and managing documents\nCreating and assigning tasks\nUtilizing OpenAI's chat models for natural language processing\nAccessing a Window Buffer Memory for context retention\n\nWhen you receive a message, analyze the user's request and determine which tool or combination of tools would be most appropriate to fulfill their needs. If you need to retrieve information, use the Vector Store tool. For scheduling, use the Create event tool. For communication, use the send email tool. For documentation, use the Create document tool. For task management, use the create task tool.\nAlways strive to provide helpful, accurate, and efficient responses. If you need clarification or additional information from the user, don't hesitate to ask.\nHow may I assist you today?\"",
+          "returnIntermediateSteps": true
+        }
+      },
+      "id": "52b0b9fd-e33e-41e2-9c9e-9f5ccddb9ab8",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.6,
+      "position": [
+        740,
+        1140
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Vector Store Tool": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Vector Store Tool",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI1": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Pinecone Vector Store1",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Window Buffer Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "send email": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Creare document": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "create task": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Pinecone Vector Store1": {
+      "ai_vectorStore": [
+        [
+          {
+            "node": "Vector Store Tool",
+            "type": "ai_vectorStore",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "7fd22ef1-d194-47c6-bf06-0c3a263b5eed",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "ae372c62e73fd2c5fcdcce7ed3303ce4ce0ece17ce506d703ef7d974ff95018f"
+  },
+  "id": "P3ApkeLln2h7dw2O",
+  "tags": [
+    {
+      "createdAt": "2024-09-25T15:20:37.510Z",
+      "updatedAt": "2024-09-25T15:20:37.510Z",
+      "id": "3geTBULNotXD1xkF",
+      "name": "Personal Agent"
+    },
+    {
+      "createdAt": "2024-09-25T06:10:42.663Z",
+      "updatedAt": "2024-09-25T06:10:42.663Z",
+      "id": "7ERzVR39mMzUGGnf",
+      "name": "Project"
+    }
+  ]
+}
