@@ -1,0 +1,137 @@
+{
+  "name": "create google task",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "827c322d-8cfb-4b8d-894d-b10db4e320de",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        520,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e5bd4899-b9e6-4012-a205-c86560ec5082",
+              "name": "Taskname",
+              "value": "={{ $json.query }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ed795277-e9c0-4318-ac51-278d1a3ef821",
+      "name": "Edit Fields1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        700,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0ad20157-5b02-43a9-8cf9-360442658f99",
+              "name": "response",
+              "value": "task create",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "7d6bb107-b0b2-43a3-aa6d-e88707a8c148",
+      "name": "Edit Fields2",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1100,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "task": "MTIxNTM3ODgyNzI5OTE1MzIyNDk6MDow",
+        "title": "={{ $json.Taskname }}",
+        "additionalFields": {}
+      },
+      "id": "355d7d08-ab07-42e4-ae62-901e6357aa50",
+      "name": "Google Tasks1",
+      "type": "n8n-nodes-base.googleTasks",
+      "typeVersion": 1,
+      "position": [
+        880,
+        160
+      ],
+      "credentials": {
+        "googleTasksOAuth2Api": {
+          "id": "bMf9feEGLTG2bu1F",
+          "name": "Google Tasks account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Google Tasks1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Tasks1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "596a41f1-65df-48d3-b132-d98e2093a069",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "ae372c62e73fd2c5fcdcce7ed3303ce4ce0ece17ce506d703ef7d974ff95018f"
+  },
+  "id": "cohJNGY36FRW41mU",
+  "tags": [
+    {
+      "createdAt": "2024-09-25T15:20:14.154Z",
+      "updatedAt": "2024-09-25T15:20:14.154Z",
+      "id": "aztqoCbHQtYjodZU",
+      "name": "tools"
+    }
+  ]
+}

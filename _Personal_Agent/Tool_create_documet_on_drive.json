@@ -1,0 +1,177 @@
+{
+  "name": "Tool create documet on drive",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "1a73eb00-2a02-4235-b598-15b6df8d094f",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        280,
+        380
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "createFromText",
+        "content": "={{ $json.message.content.content }}",
+        "name": "={{ $json.message.content.name }}",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "root",
+          "cachedResultName": "/ (Root folder)"
+        },
+        "options": {}
+      },
+      "id": "660f7c91-8b87-4938-aa1d-8aca0a8fdd18",
+      "name": "Google Drive",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        840,
+        380
+      ],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "6z254nFIhWrobGXB",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d9d7a8e6-3fe1-4c5b-8f4d-91065ac34338",
+              "name": "response",
+              "value": "File create",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "6ff3788c-947b-4e76-adb2-0475855bef7f",
+      "name": "Edit Fields",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1040,
+        380
+      ]
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "Parse the \"query\" and output the\nseoarately.",
+              "role": "assistant"
+            },
+            {
+              "content": "={{ JSON.stringify($json.query) }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "id": "b7062246-0bc4-4752-aa08-7439de5144c1",
+      "name": "OpenAI",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.4,
+      "position": [
+        460,
+        380
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "d5QuQIJprInGK4X2",
+          "name": "OpenAi account"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Execute Workflow Trigger": [
+      {
+        "json": {
+          "query": "{\"content\":\"=\",\"name\":\"=\"}"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "OpenAI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Drive": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI": {
+      "main": [
+        [
+          {
+            "node": "Google Drive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "9734a784-36eb-4678-845d-5642bdd4b90e",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "ae372c62e73fd2c5fcdcce7ed3303ce4ce0ece17ce506d703ef7d974ff95018f"
+  },
+  "id": "cf5Mm09TFC2nySvk",
+  "tags": [
+    {
+      "createdAt": "2024-09-25T15:20:37.510Z",
+      "updatedAt": "2024-09-25T15:20:37.510Z",
+      "id": "3geTBULNotXD1xkF",
+      "name": "Personal Agent"
+    },
+    {
+      "createdAt": "2024-09-25T15:20:14.154Z",
+      "updatedAt": "2024-09-25T15:20:14.154Z",
+      "id": "aztqoCbHQtYjodZU",
+      "name": "tools"
+    }
+  ]
+}
