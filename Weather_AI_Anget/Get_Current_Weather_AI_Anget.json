@@ -1,0 +1,172 @@
+{
+  "name": "Get Current Weather AI Anget",
+  "nodes": [
+    {
+      "parameters": {
+        "model": "gpt-4o-mini-2024-07-18",
+        "options": {}
+      },
+      "id": "265bb3a9-8ac2-4f8c-b840-210c457cba03",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1,
+      "position": [
+        380,
+        420
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": "d5QuQIJprInGK4X2",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "cd72ed66-9762-4aae-a76f-9b664afe6c94",
+      "name": "Window Buffer Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.2,
+      "position": [
+        500,
+        420
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "7b9803e4-ec84-4e9a-871a-345c4b6aca17",
+      "name": "Wikipedia",
+      "type": "@n8n/n8n-nodes-langchain.toolWikipedia",
+      "typeVersion": 1,
+      "position": [
+        620,
+        440
+      ]
+    },
+    {
+      "parameters": {
+        "name": "weather",
+        "description": "Chiama questo strumento per accedere alle informazioni meteorologiche attuali.\n",
+        "workflowId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "cCzoPO7nAx3MADlY",
+          "cachedResultName": "Get Current Weather AI Anget"
+        }
+      },
+      "id": "66e7a4a5-c402-4a55-9894-b7b9702bb404",
+      "name": "weather",
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        780,
+        440
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "f1f53a18-5506-43c8-87eb-39813632d973",
+      "name": "When chat message received",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        280,
+        200
+      ],
+      "webhookId": "31dd4c10-0a1c-4897-816a-e7abf8e8892c"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are an assistent use to access weather infomation anywhere around the world. Plese return from the the weather tool"
+        }
+      },
+      "id": "62584f20-6808-4dbe-bf0f-cffc21b5cec6",
+      "name": "Weather AI Anget",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.6,
+      "position": [
+        500,
+        200
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Weather AI Anget",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Window Buffer Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Weather AI Anget",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wikipedia": {
+      "ai_tool": [
+        [
+          {
+            "node": "Weather AI Anget",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "weather": {
+      "ai_tool": [
+        [
+          {
+            "node": "Weather AI Anget",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Weather AI Anget",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "e011d102-948e-42d0-a7ed-ba8e239435d5",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "ae372c62e73fd2c5fcdcce7ed3303ce4ce0ece17ce506d703ef7d974ff95018f"
+  },
+  "id": "cCzoPO7nAx3MADlY",
+  "tags": [
+    {
+      "createdAt": "2024-09-25T06:10:42.663Z",
+      "updatedAt": "2024-09-25T06:10:42.663Z",
+      "id": "7ERzVR39mMzUGGnf",
+      "name": "Project"
+    }
+  ]
+}
